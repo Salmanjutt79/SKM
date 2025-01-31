@@ -1,0 +1,142 @@
+prompt --application/shared_components/logic/application_processes/show_attachment
+begin
+--   Manifest
+--     APPLICATION PROCESS: Show_Attachment
+--   Manifest End
+wwv_flow_imp.component_begin (
+ p_version_yyyy_mm_dd=>'2023.04.28'
+,p_release=>'23.1.4'
+,p_default_workspace_id=>100000
+,p_default_application_id=>133
+,p_default_id_offset=>0
+,p_default_owner=>'HMIS'
+);
+wwv_flow_imp_shared.create_flow_process(
+ p_id=>wwv_flow_imp.id(290536673222491850)
+,p_process_sequence=>1
+,p_process_point=>'ON_DEMAND'
+,p_process_type=>'NATIVE_PLSQL'
+,p_process_name=>'Show_Attachment'
+,p_process_sql_clob=>wwv_flow_string.join(wwv_flow_t_varchar2(
+'DECLARE',
+'  VBLOB       BLOB;',
+'  VMIMETYPE   VARCHAR2(50);',
+'  vfile_name  varchar2(4000);',
+'  vDocumentId varchar2(50) := :P102_DOCUMENT_ID;',
+'  vTableName  varchar2(100) := :P102_TABLE_NAME;',
+'  vParam_01   varchar2(50) := :P102_PARAM_01;',
+'  vParam_02   varchar2(50) := :P102_PARAM_02;',
+'  vParam_03   varchar2(50) := :P102_PARAM_03;',
+'  vParam_04   varchar2(50) := :P102_PARAM_04;',
+'  vParam_05   varchar2(50) := :P102_PARAM_05;',
+'  V_RESULT    HIS.PKG_FILE_ATTACHMENT.TAB_VIEW_ATTACHED_FILE_APEX;',
+'  V_ERROR     VARCHAR2(4000);',
+'  V_INDEX     INTEGER;',
+'  V_DOCUMENT_TYPE VARCHAR2(5);',
+'  V_DOCUMENT_NAME VARCHAR2(4000);',
+'  vAccessPath VARCHAR2(1000);',
+'BEGIN',
+'    IF vDocumentId IS NOT NULL AND LENGTH(vDocumentId) = 13 ',
+'    THEN ',
+'            SELECT B.DB_FIELD DOC_BLOB,',
+'            CASE',
+'                WHEN REPLACE(UPPER(B.DOCUMENT_TYPE), ''.'', '''') in',
+'                    (''PDF'', ''XLSX'', ''XLS'', ''DOC'', ''TXT'', ''DOCX'', ''MP4'') ',
+'                THEN',
+'                    ''application/'' || REPLACE(UPPER(B.DOCUMENT_TYPE), ''.'', '''')',
+'                WHEN REPLACE(UPPER(B.DOCUMENT_TYPE), ''.'', '''') in',
+'                    (''JPG'', ''PNG'', ''JPEG'', ''TIFF'') ',
+'                THEN',
+'                    ''image/'' || REPLACE(UPPER(B.DOCUMENT_TYPE), ''.'', '''')',
+'                ELSE',
+'                    ''application/octet-stream'' -- Default MIME type if unknown',
+'            END,',
+'            B.DOCUMENT_NAME',
+'          INTO VBLOB, VMIMETYPE, vfile_name',
+'         FROM LOB.DOCUMENTS_STORE B',
+'        WHERE B.DOCUMENT_ID = vDocumentId;',
+'',
+'    /*IF NOT                                                                ',
+'        HIS.PKG_FILE_ATTACHMENT.F_VIEW_ATTACHED_FILE_APEX(P_DOCUMENT_ID         => vDocumentId,',
+'                                                          P_DOCUMENT_NAME       => vfile_name,',
+'                                                          P_TAB                 => V_RESULT,',
+'                                                          P_IGNORE_NO_DATA      => ''N'',',
+'                                                          P_CALLING_LOCATION_ID => :GV_PHYSICAL_LOCATION_ID,',
+'                                                          P_CALLING_OBJECT      => ''S81'',',
+'                                                          P_CALLING_USER        => :GV_USER_MRNO,',
+'                                                          P_CALLING_EVENT       => ''DOCUMENT_ATTACHMENT'',',
+'                                                          P_ERROR               => V_ERROR) THEN',
+'        NULL;',
+'    END IF; ',
+'',
+'        V_INDEX := V_RESULT.FIRST;',
+'        LOOP',
+'            VBLOB := V_RESULT(V_INDEX).ATTACHMENT; ',
+'            VMIMETYPE := CASE',
+'                            WHEN REPLACE(UPPER(V_RESULT(V_INDEX).DOCUMENT_TYPE), ''.'', '''') in',
+'                                (''PDF'', ''XLSX'', ''XLS'', ''DOC'', ''TXT'', ''DOCX'', ''MP4'') ',
+'                            THEN',
+'                                ''application/'' || REPLACE(UPPER(V_RESULT(V_INDEX).DOCUMENT_TYPE), ''.'', '''')',
+'                            WHEN REPLACE(UPPER(V_RESULT(V_INDEX).DOCUMENT_TYPE), ''.'', '''') in',
+'                                (''JPG'', ''PNG'', ''JPEG'', ''TIFF'') ',
+'                            THEN',
+'                                ''image/'' || REPLACE(UPPER(V_RESULT(V_INDEX).DOCUMENT_TYPE), ''.'', '''')',
+'                            ELSE',
+'                                ''application/octet-stream'' -- Default MIME type if unknown',
+'                        END;',
+'',
+'            --V_RESULT(V_INDEX).DOCUMENT_TYPE;',
+'            vfile_name := V_RESULT(V_INDEX).DOCUMENT_NAME;',
+'            vAccessPath := V_RESULT(V_INDEX).ACCESS_PATH||V_RESULT(V_INDEX).DOCUMENT_NAME;',
+'            vAccessPath := replace(replace(vAccessPath, ''\\'', ''//''), ''\'', ''/'');',
+'            :P102_ACCESS_PATH := vAccessPath;',
+'',
+'            --HIS.MESSAGE_ENTRY(''HELLO -, 000, VMIMETYPE:''||VMIMETYPE||'', vfile_name:''||vfile_name||'', V_ACCESS_PATH:''||:P102_ACCESS_PATH||'', V_INDEX:''||V_INDEX);',
+'',
+'            EXIT WHEN V_INDEX = V_RESULT.LAST;',
+'            V_INDEX := V_RESULT.NEXT(V_INDEX);',
+'        END LOOP;*/',
+'',
+'    ELSIF vDocumentId IS NULL OR LENGTH(vDocumentId) < 13 THEN  ',
+'        IF UPPER(vTableName) = ''SKM_LIBRARY.ARTICLE_INFORMATION'' THEN       ',
+'            SELECT B.ARTICLE DOC_BLOB,',
+'                    CASE',
+'                        WHEN REPLACE(UPPER(B.ARTICLE_NAME), ''.'', '''') in',
+'                            (''PDF'', ''XLSX'', ''XLS'', ''DOC'', ''TXT'', ''DOCX'', ''MP4'') ',
+'                        THEN',
+'                            ''application/'' || REPLACE(UPPER(B.ARTICLE_NAME), ''.'', '''')',
+'                        WHEN REPLACE(UPPER(B.ARTICLE_NAME), ''.'', '''') in',
+'                            (''JPG'', ''PNG'', ''JPEG'', ''TIFF'') ',
+'                        THEN',
+'                            ''image/'' || REPLACE(UPPER(B.ARTICLE_NAME), ''.'', '''')',
+'                        ELSE',
+'                            ''application/octet-stream'' -- Default MIME type if unknown',
+'                    END,',
+'                   B.TITLE DOCUMENT_NAME',
+'              INTO VBLOB, VMIMETYPE, vfile_name',
+'             FROM SKM_LIBRARY.ARTICLE_INFORMATION B',
+'            WHERE 1=1--NVL(B.DOCUMENT_ID, ''~'') = NVL(vDocumentId, NVL(B.DOCUMENT_ID, ''~''))',
+'              AND B.JOURNAL_ID = vParam_01',
+'              AND B.ISSUE_YEAR = vParam_02',
+'              AND B.SERIAL_NO  = vParam_03;',
+'        ',
+'    END IF;',
+'  END IF;',
+'  ',
+'    OWA_UTIL.MIME_HEADER(VMIMETYPE, FALSE);',
+'    HTP.P(''Content-Length: '' || DBMS_LOB.GETLENGTH(VBLOB));',
+'    HTP.P(''Content-Disposition: filename="'' || vfile_name || ''"'');',
+'    HTP.P(''X-Access-Path: '' || vAccessPath);  -- Custom header: X-Access-Path',
+'    OWA_UTIL.HTTP_HEADER_CLOSE;',
+'    WPG_DOCLOAD.DOWNLOAD_FILE(VBLOB);',
+'    ',
+'EXCEPTION',
+'    WHEN NO_DATA_FOUND THEN NULL;  --Handle the case where no document is found',
+'    WHEN OTHERS THEN NULL;  ',
+'END;'))
+,p_process_clob_language=>'PLSQL'
+,p_security_scheme=>'MUST_NOT_BE_PUBLIC_USER'
+);
+wwv_flow_imp.component_end;
+end;
+/
