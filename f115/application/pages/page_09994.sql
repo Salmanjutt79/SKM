@@ -1,0 +1,65 @@
+prompt --application/pages/page_09994
+begin
+--   Manifest
+--     PAGE: 09994
+--   Manifest End
+wwv_flow_imp.component_begin (
+ p_version_yyyy_mm_dd=>'2023.04.28'
+,p_release=>'23.1.4'
+,p_default_workspace_id=>100000
+,p_default_application_id=>115
+,p_default_id_offset=>0
+,p_default_owner=>'HMIS'
+);
+wwv_flow_imp_page.create_page(
+ p_id=>9994
+,p_name=>'MODAL3'
+,p_alias=>'MODAL31'
+,p_page_mode=>'MODAL'
+,p_step_title=>'MODAL3'
+,p_autocomplete_on_off=>'OFF'
+,p_step_template=>wwv_flow_imp.id(121281702253551247)
+,p_page_template_options=>'#DEFAULT#'
+,p_dialog_height=>'400'
+,p_dialog_width=>'400'
+,p_dialog_chained=>'N'
+,p_protection_level=>'C'
+,p_page_component_map=>'11'
+,p_last_updated_by=>'FARHANAKRAM'
+,p_last_upd_yyyymmddhh24miss=>'20230922174411'
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(17279531597033039)
+,p_button_sequence=>10
+,p_button_name=>'Exit'
+,p_button_action=>'REDIRECT_PAGE'
+,p_button_template_options=>'#DEFAULT#:t-Button--iconLeft'
+,p_button_template_id=>wwv_flow_imp.id(14614904670908288)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Exit'
+,p_button_redirect_url=>'f?p=&APP_ID.:99941:&SESSION.::&DEBUG.:::'
+,p_button_cattributes=>'accesskey=''p'''
+,p_grid_new_row=>'Y'
+);
+wwv_flow_imp_page.create_page_da_event(
+ p_id=>wwv_flow_imp.id(17280756681033044)
+,p_name=>'New'
+,p_event_sequence=>10
+,p_triggering_element_type=>'BUTTON'
+,p_triggering_button_id=>wwv_flow_imp.id(17279531597033039)
+,p_bind_type=>'bind'
+,p_execution_type=>'IMMEDIATE'
+,p_bind_event_type=>'click'
+);
+wwv_flow_imp_page.create_page_da_action(
+ p_id=>wwv_flow_imp.id(17281262340033046)
+,p_event_id=>wwv_flow_imp.id(17280756681033044)
+,p_event_result=>'TRUE'
+,p_action_sequence=>10
+,p_execute_on_page_init=>'N'
+,p_action=>'NATIVE_JAVASCRIPT_CODE'
+,p_attribute_01=>'apex.navigation.dialog.close(true);'
+);
+wwv_flow_imp.component_end;
+end;
+/

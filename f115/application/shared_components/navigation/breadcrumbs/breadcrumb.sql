@@ -1,0 +1,92 @@
+prompt --application/shared_components/navigation/breadcrumbs/breadcrumb
+begin
+--   Manifest
+--     MENU: Breadcrumb
+--   Manifest End
+wwv_flow_imp.component_begin (
+ p_version_yyyy_mm_dd=>'2023.04.28'
+,p_release=>'23.1.4'
+,p_default_workspace_id=>100000
+,p_default_application_id=>115
+,p_default_id_offset=>0
+,p_default_owner=>'HMIS'
+);
+wwv_flow_imp_shared.create_menu(
+ p_id=>wwv_flow_imp.id(14451446309908206)
+,p_name=>'Breadcrumb'
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(3132517193234196)
+,p_short_name=>'RAD_PERFORMANCE'
+,p_link=>'f?p=&APP_ID.:40:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>40
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(14451650469908206)
+,p_short_name=>'Home'
+,p_link=>'f?p=&APP_ID.:1:&APP_SESSION.::&DEBUG.'
+,p_page_id=>1
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(30347522674843820)
+,p_short_name=>'test'
+,p_link=>'f?p=&APP_ID.:49:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>49
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(30348848460845168)
+,p_short_name=>'testcopy'
+,p_link=>'f?p=&APP_ID.:50:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>50
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(51497131571237758)
+,p_short_name=>'NON_CA_TREATMENT'
+,p_link=>'f?p=&APP_ID.:30:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>30
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(53910865194527970)
+,p_short_name=>'RAD_CALLER_PAGE'
+,p_link=>'f?p=&APP_ID.:9996:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>9996
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(55336099668012126)
+,p_short_name=>'RADIATION_MACHINE_SCHEDULE'
+,p_link=>'f?p=&APP_ID.:31:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>31
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(77277213942879675)
+,p_short_name=>'test'
+,p_link=>'f?p=&APP_ID.:33:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>33
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(91192574812989332)
+,p_short_name=>'RAD_REQUEST'
+,p_link=>'f?p=&APP_ID.:34:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>34
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(185774045729308992)
+,p_short_name=>'GENERIC_PENDING_TASK_Q'
+,p_link=>'f?p=&APP_ID.:36:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>36
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(211183438568691996)
+,p_short_name=>'model1'
+,p_link=>'f?p=&APP_ID.:9991:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>9991
+);
+wwv_flow_imp_shared.create_menu_option(
+ p_id=>wwv_flow_imp.id(211185289407694213)
+,p_short_name=>'model2'
+,p_link=>'f?p=&APP_ID.:9992:&APP_SESSION.::&DEBUG.:::'
+,p_page_id=>9992
+);
+wwv_flow_imp.component_end;
+end;
+/

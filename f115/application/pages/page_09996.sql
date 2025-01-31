@@ -1,0 +1,145 @@
+prompt --application/pages/page_09996
+begin
+--   Manifest
+--     PAGE: 09996
+--   Manifest End
+wwv_flow_imp.component_begin (
+ p_version_yyyy_mm_dd=>'2023.04.28'
+,p_release=>'23.1.4'
+,p_default_workspace_id=>100000
+,p_default_application_id=>115
+,p_default_id_offset=>0
+,p_default_owner=>'HMIS'
+);
+wwv_flow_imp_page.create_page(
+ p_id=>9996
+,p_name=>'RAD_CALLER_PAGE'
+,p_alias=>'RAD-CALLER-PAGE'
+,p_step_title=>'RAD_CALLER_PAGE'
+,p_autocomplete_on_off=>'OFF'
+,p_page_template_options=>'#DEFAULT#'
+,p_protection_level=>'C'
+,p_page_component_map=>'17'
+,p_last_updated_by=>'MAZAM'
+,p_last_upd_yyyymmddhh24miss=>'20231024093959'
+);
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(53910409565527966)
+,p_plug_name=>'Breadcrumb'
+,p_region_template_options=>'#DEFAULT#:t-BreadcrumbRegion--useBreadcrumbTitle'
+,p_component_template_options=>'#DEFAULT#'
+,p_plug_template=>wwv_flow_imp.id(14554375113908257)
+,p_plug_display_sequence=>10
+,p_plug_display_point=>'REGION_POSITION_01'
+,p_menu_id=>wwv_flow_imp.id(14451446309908206)
+,p_plug_source_type=>'NATIVE_BREADCRUMB'
+,p_menu_template_id=>wwv_flow_imp.id(14616451605908289)
+);
+wwv_flow_imp_page.create_page_plug(
+ p_id=>wwv_flow_imp.id(53911097447531801)
+,p_plug_name=>'Radiation Caller Page'
+,p_region_template_options=>'#DEFAULT#:t-Region--scrollBody'
+,p_plug_template=>wwv_flow_imp.id(14542292946908251)
+,p_plug_display_sequence=>20
+,p_include_in_reg_disp_sel_yn=>'Y'
+,p_plug_new_grid_row=>false
+,p_attribute_01=>'N'
+,p_attribute_02=>'HTML'
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(53911218011531803)
+,p_button_sequence=>50
+,p_button_plug_id=>wwv_flow_imp.id(53911097447531801)
+,p_button_name=>'P9996_BTN_NON_CA_TREATMENT'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(14614821261908288)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Radiation Performance'
+,p_grid_new_row=>'Y'
+);
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(12014420297911328)
+,p_button_sequence=>60
+,p_button_plug_id=>wwv_flow_imp.id(53911097447531801)
+,p_button_name=>'P9996_BTN_RAD_PERFORMANCE'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(14614821261908288)
+,p_button_is_hot=>'Y'
+,p_button_image_alt=>'Non CA Treatment '
+,p_grid_new_row=>'N'
+,p_grid_new_column=>'Y'
+);
+wwv_flow_imp_page.create_page_branch(
+ p_id=>wwv_flow_imp.id(12014512619911329)
+,p_branch_name=>'GoToPageNumber40'
+,p_branch_action=>'f?p=&APP_ID.:40:&SESSION.::&DEBUG.::P40_RADIATION_NO_2,P40_SCHEDULE_SRNO_1,P40_MASTER_SITE_ID,P40_MRNO:&P9996_RADIATION_NO.,&P9996_SERIAL_NO.,&P9996_SITE_ID.,&P9996_MRNO.&success_msg=#SUCCESS_MSG#'
+,p_branch_point=>'BEFORE_COMPUTATION'
+,p_branch_type=>'REDIRECT_URL'
+,p_branch_when_button_id=>wwv_flow_imp.id(53911218011531803)
+,p_branch_sequence=>10
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(12014243428911326)
+,p_name=>'P9996_SITE_ID'
+,p_item_sequence=>20
+,p_item_plug_id=>wwv_flow_imp.id(53911097447531801)
+,p_prompt=>'Site Id'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_field_template=>wwv_flow_imp.id(14612352542908287)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(12014387983911327)
+,p_name=>'P9996_SERIAL_NO'
+,p_item_sequence=>30
+,p_item_plug_id=>wwv_flow_imp.id(53911097447531801)
+,p_prompt=>'Serial No'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_field_template=>wwv_flow_imp.id(14612352542908287)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(41651962506575636)
+,p_name=>'P9996_MRNO'
+,p_item_sequence=>40
+,p_item_plug_id=>wwv_flow_imp.id(53911097447531801)
+,p_prompt=>'Mrno'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_field_template=>wwv_flow_imp.id(14612352542908287)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+);
+wwv_flow_imp_page.create_page_item(
+ p_id=>wwv_flow_imp.id(53911134915531802)
+,p_name=>'P9996_RADIATION_NO'
+,p_item_sequence=>10
+,p_item_plug_id=>wwv_flow_imp.id(53911097447531801)
+,p_prompt=>'Radiation No'
+,p_display_as=>'NATIVE_TEXT_FIELD'
+,p_cSize=>30
+,p_field_template=>wwv_flow_imp.id(14612352542908287)
+,p_item_template_options=>'#DEFAULT#'
+,p_attribute_01=>'N'
+,p_attribute_02=>'N'
+,p_attribute_04=>'TEXT'
+,p_attribute_05=>'BOTH'
+);
+wwv_flow_imp.component_end;
+end;
+/
