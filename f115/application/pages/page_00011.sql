@@ -1,9 +1,26 @@
-prompt --application/pages/page_00011
+--------------------------------------------------------------------------------
+-- © Shaukat Khanum Memorial Trust (2000-2022). All rights reserved.
+--------------------------------------------------------------------------------
+prompt --application/set_environment
+set define off verify off feedback off
+whenever sqlerror exit sql.sqlcode rollback
+--------------------------------------------------------------------------------
+--
+-- Oracle APEX export file
+--
+-- You should run this script using a SQL client connected to the database as
+-- the owner (parsing schema) of the application or as a database user with the
+-- APEX_ADMINISTRATOR_ROLE role.
+--
+-- This export file has been automatically generated. Modifying this file is not
+-- supported by Oracle and can lead to unexpected application and/or instance
+-- behavior now or in the future.
+--
+-- NOTE: Calls to apex_application_install override the defaults below.
+--
+--------------------------------------------------------------------------------
 begin
---   Manifest
---     PAGE: 00011
---   Manifest End
-wwv_flow_imp.component_begin (
+wwv_flow_imp.import_begin (
  p_version_yyyy_mm_dd=>'2023.04.28'
 ,p_release=>'23.1.4'
 ,p_default_workspace_id=>100000
@@ -11,6 +28,36 @@ wwv_flow_imp.component_begin (
 ,p_default_id_offset=>0
 ,p_default_owner=>'HMIS'
 );
+end;
+/
+ 
+prompt APPLICATION 115 - Radiation
+--
+-- Application Export:
+--   Application:     115
+--   Name:            Radiation
+--   Date and Time:   14:59 Friday January 31, 2025
+--   Exported By:     MUHAMMADUSMAN1
+--   Flashback:       0
+--   Export Type:     Page Export
+--   Manifest
+--     PAGE: 11
+--   Manifest End
+--   Version:         23.1.4
+--   Instance ID:     697853336793999
+--
+
+begin
+null;
+end;
+/
+prompt --application/pages/delete_00011
+begin
+wwv_flow_imp_page.remove_page (p_flow_id=>wwv_flow.g_flow_id, p_page_id=>11);
+end;
+/
+prompt --application/pages/page_00011
+begin
 wwv_flow_imp_page.create_page(
  p_id=>11
 ,p_name=>'PRIORITY'
@@ -52,7 +99,7 @@ wwv_flow_imp_page.create_page(
 ,p_read_only_when2=>'PLSQL'
 ,p_page_component_map=>'21'
 ,p_last_updated_by=>'MUHAMMADUSMAN1'
-,p_last_upd_yyyymmddhh24miss=>'20250108224511'
+,p_last_upd_yyyymmddhh24miss=>'20250131145932'
 );
 wwv_flow_imp_page.create_page_plug(
  p_id=>wwv_flow_imp.id(449226409415283362)
@@ -144,7 +191,6 @@ wwv_flow_imp_page.create_region_column(
 ,p_source_type=>'DB_COLUMN'
 ,p_source_expression=>'PRIORITY_PREFIX'
 ,p_data_type=>'VARCHAR2'
-,p_session_state_data_type=>'VARCHAR2'
 ,p_is_query_only=>false
 ,p_item_type=>'NATIVE_TEXT_FIELD'
 ,p_heading=>'Priority Prefix'
@@ -179,7 +225,6 @@ wwv_flow_imp_page.create_region_column(
  p_id=>wwv_flow_imp.id(175434887084645310)
 ,p_name=>'delete'
 ,p_source_type=>'NONE'
-,p_session_state_data_type=>'VARCHAR2'
 ,p_item_type=>'NATIVE_HTML_EXPRESSION'
 ,p_heading_alignment=>'LEFT'
 ,p_display_sequence=>60
@@ -205,7 +250,6 @@ wwv_flow_imp_page.create_region_column(
 ,p_source_type=>'DB_COLUMN'
 ,p_source_expression=>'DESCRIPTION'
 ,p_data_type=>'VARCHAR2'
-,p_session_state_data_type=>'VARCHAR2'
 ,p_is_query_only=>false
 ,p_item_type=>'NATIVE_TEXT_FIELD'
 ,p_heading=>'Description'
@@ -243,7 +287,6 @@ wwv_flow_imp_page.create_region_column(
 ,p_source_type=>'DB_COLUMN'
 ,p_source_expression=>'ACTIVE'
 ,p_data_type=>'VARCHAR2'
-,p_session_state_data_type=>'VARCHAR2'
 ,p_is_query_only=>false
 ,p_item_type=>'NATIVE_SINGLE_CHECKBOX'
 ,p_heading=>'Active'
@@ -423,6 +466,17 @@ wwv_flow_imp_page.create_page_button(
 ,p_button_redirect_url=>'f?p=100:1:&SESSION.::&DEBUG.:::'
 ,p_icon_css_classes=>'fa-window-close-o'
 );
+wwv_flow_imp_page.create_page_button(
+ p_id=>wwv_flow_imp.id(313813013209270131)
+,p_button_sequence=>30
+,p_button_plug_id=>wwv_flow_imp.id(449226409415283362)
+,p_button_name=>'New'
+,p_button_action=>'SUBMIT'
+,p_button_template_options=>'#DEFAULT#'
+,p_button_template_id=>wwv_flow_imp.id(14614821261908288)
+,p_button_image_alt=>'New'
+,p_button_position=>'CLOSE'
+);
 wwv_flow_imp_page.create_page_da_event(
  p_id=>wwv_flow_imp.id(17231831932496217)
 ,p_name=>'Save'
@@ -562,6 +616,13 @@ wwv_flow_imp_page.create_page_process(
 ,p_process_success_message=>'Record saved properly'
 ,p_internal_uid=>17226968311496210
 );
-wwv_flow_imp.component_end;
 end;
 /
+prompt --application/end_environment
+begin
+wwv_flow_imp.import_end(p_auto_install_sup_obj => nvl(wwv_flow_application_install.get_auto_install_sup_obj, false));
+commit;
+end;
+/
+set verify on feedback on define on
+prompt  ...done
